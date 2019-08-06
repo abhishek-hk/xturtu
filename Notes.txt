@@ -1,0 +1,175 @@
+Commands:
+
+
+ssh -keygen -f tfs : Generates public and private RSA keys.private for jenkins and public for tfs
+
+
+Environment Variables(Jenkins-Confiure).
+APP_NAME=
+DEV_TEAM=
+DEV_APPROVERS= yfs8hf
+
+----
+To open a project: OC project name of project.
+----
+install the kubectl tool in users with your ID folder.
+- 
+we can access the kubectl using the command line.
+
+**Token- 
+oc sa get-token jenkins : use the command to get  a token after using the command. This token is used as secret text in Jenkins add credentials. ; OC project tdx-build.(Path)
+
+Global Credentials: Unrestricted.
+ID:
+add credientials- secret text(Each environment must be configued with respective clusters.)
+ 
+(**Use project name in place of devteam) 
+devteam-dev-token: development cluster token
+
+devteam-stress-rr-token: mahwas stress cluster == https://master-paas-stress-njrar-02.ams1907.com/console/catalog - stress repo link
+
+devteam-stress-ww-token: windward stress cluster == https://master-paas-stress-gaalp-02.ams1907.com/console/catalog - winward cluster link
+
+
+
+--
+https://master-paas-stress-njrar-02.ams1907.com/console/catalog - stress repo link.
+
+-----
+
+
+SSH key generation :
+
+Step 1: create a folder with name as SSH Key.
+
+step 2 : visit https://master-paas-stress-gaalp-02.ams1907.com/console/catalog
+https://tfs.ups.com/tfs/UpsProd/P02AGit_MIG_DevOps/MIG_DevOps/_git/deployment-properties-ups-com
+
+step 3:
+Open Git bash by right clicking.
+
+step 4: Type command : ssh-keygen -f mig-shared-configs
+
+step 5: Public and private keys are now generated. 
+
+step 6: Copy the public key> go to deployment properties> clone> Manage ssh> and add the public in  key data. Description: MIG-shared-Config
+
+Step 7: go to jenkins: Project > credentials> Stores cooped> global values> Add credentials> SSH username with private key.
+Endter the private key .
+
+Leave the netx bos empty.
+ID> Mig-shared-configs
+Description: mig shared config.
+
+
+To run the pipeline:
+https://onboarding-migdevops-integration.paas-dev-njrar-02.ams1907.com/pipelines/deploymentProcess/deployment-steps/
+
+>in Jenkins> go to dev envronment and build now.
+
+>check console output for any issues , checking logs
+
+
+
+
+
+
+
+-----------------------
+Git Bash: 
+ssh-keygen -f tfs 
+ssh-keygen -f mig-shared-configs
+
+-------------
+ssh-keygen-o
+-------------
+
+
+Openshift > Select project> resources > create secret> Seletc Source Secret. git Secret. 
+> enter the private key> and create.
+
+
+
+
+11cb42f7dfdbadd115ac7a7bf329e1bb4b
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------------------------------------------
+ssh-keygen -f mig-shared-configs
+
+
+---------------------------------------------------------------------------------------------
+
+
+Setting/Building up project on Openshift:
+
+
+go to build and create a build with the following Details respective to the application you working on.
+
+
+
+
+Step 1: enter the Git url for the tfs repo. ssh link is recommended.
+
+
+Step 2: Configure the Image with apprpriate info respective to project/app -
+Buil from  fro BIC:
+openshift > Jboss-webserver31-tomcat8-openshift > 1.4-6.1
+
+
+
+
+Step 3: create a gitsecret using the generated ssh private key. using the ssh secret, by creating one.
+
+Step 4: start build once the configuration setup is done.
+
+
+Step 5: Applications> deployments> to look at the pods.
+
+
+
+
+
+
+------------------------------------------------------------------------------
+Jenkins Project set up:
+It is always recomemned to build using the devbelopment branch, create a dev branch in tfs for the app .
+
+Step 1:
+Branch Sources: add the ssh repo link of the application from tfs,
+use the credentials:vgy3hgk- bryan beck credentials
+
+
+Step 2:
+Add the environment variables in the sandbox in jenkins, 
+respective to tyhe app you are working on.
+
+APP_NAME=bic
+DEV_TEAM=migdevops
+DEV_APPROVERS=yfs8zhf
+POM_FILE_LOCATION=./pom.xml
+
+Save.
+
+
+
+
+
+
+
